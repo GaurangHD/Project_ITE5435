@@ -1,14 +1,9 @@
-package com.n01579298.order_service.model;
+package com.n01579298.fees_service.model;
 
 import java.time.LocalDateTime;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+public class OrderDTO {
 
-@Document(collection = "orders")
-public class Order {
-
-	@Id
 	private String orderId;
 	private String userId;
 	private int quantity;
@@ -16,7 +11,7 @@ public class Order {
 	private double orderAmt;
 	private double totalAmount;
 	private LocalDateTime orderDate;
-	private String feeId;
+	private int feeId;
 	private String orderType;
 
 	public String getOrderId() {
@@ -75,11 +70,11 @@ public class Order {
 		this.orderDate = orderDate;
 	}
 
-	public String getFeeId() {
+	public int getFeeId() {
 		return feeId;
 	}
 
-	public void setFeeId(String feeId) {
+	public void setFeeId(int feeId) {
 		this.feeId = feeId;
 	}
 

@@ -1,18 +1,65 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Order Details</title>
+    <title>Order & Fee Details</title>
 </head>
 <body>
     <h2>Order Details</h2>
-    <div>
-        <p><strong>Order ID:</strong> <span th:text="${order.id}"></span></p>
-        <p><strong>User ID:</strong> <span th:text="${order.user}"></span></p>
-        <p><strong>Stock Symbol:</strong> <span th:text="${order.stockSymbol}"></span></p>
-        <p><strong>Quantity:</strong> <span th:text="${order.quantity}"></span></p>
-        <p><strong>Price:</strong> <span th:text="${order.price}"></span></p>
-        <p><strong>Status:</strong> <span th:text="${order.status}"></span></p>
-        <p><strong>Order Date:</strong> <span th:text="${order.orderDate}"></span></p>
+    <form th:object="${order}" method="post">
+
+        <label for="orderId">Order ID:</label>
+        <input type="text" id="orderId" th:field="*{orderId}" readonly/><br><br>
+
+        <label for="userId">User ID:</label>
+        <input type="text" id="userId" th:field="*{userId}" readonly/><br><br>
+
+        <label for="tickerSymbol">Ticker Symbol:</label>
+        <input type="text" id="tickerSymbol" th:field="*{tickerSymbol}" readonly/><br><br>
+
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" th:field="*{quantity}" readonly/><br><br>
+
+        <label for="orderAmt">Order Amount:</label>
+        <input type="number" id="orderAmt" th:field="*{orderAmt}" readonly/><br><br>
+
+        <label for="totalAmount">Total Amount:</label>
+        <input type="number" id="totalAmount" th:field="*{totalAmount}" readonly/><br><br>
+
+        <label for="orderDate">Order Date:</label>
+        <input type="text" id="orderDate" th:value="${#temporals.format(order.orderDate, 'yyyy-MM-dd HH:mm:ss')}" readonly/><br><br>
+
+        <label for="orderType">Order Type:</label>
+        <input type="text" id="orderType" th:field="*{orderType}" readonly/><br><br>
+
+        <label for="feeId">Fee ID:</label>
+        <input type="text" id="feeId" th:field="*{feeId}" readonly/><br><br>
+    </form>
+
+    <h2>Fees Details</h2>
+
+    <!-- Check if feeId is null -->
+    <div th:if="${order.feeId == null}">
+        <p><strong>No fees available for this order.</strong></p>
+    </div>
+
+    <!-- Show fee details if feeId is not null -->
+    <div th:if="${order.feeId != null}" th:object="${fee}">
+        <form>
+            <label for="feeId">Fee ID:</label>
+            <input type="text" id="feeId" th:field="*{feeId}" readonly/><br><br>
+
+            <label for="feeType">Fee Type:</label>
+            <input type="text" id="feeType" th:value="${fee.feeType ? 'Buy' : 'Sell'}" readonly/><br><br>
+
+            <label for="feeAmount">Fee Amount:</label>
+            <input type="number" id="feeAmount" th:field="*{feeAmount}" readonly/><br><br>
+
+            <label for="feeSalesTax">Fee Sales Tax:</label>
+            <input type="number" id="feeSalesTax" th:field="*{feeSalesTax}" readonly/><br><br>
+
+            <label for="feeDate">Fee Date:</label>
+            <input type="text" id="feeDate" th:value="${#temporals.format(fee.feeDate, 'yyyy-MM-dd HH:mm:ss')}" readonly/><br><br>
+        </form>
     </div>
 </body>
 </html>

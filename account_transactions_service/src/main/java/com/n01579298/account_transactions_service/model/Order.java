@@ -1,14 +1,12 @@
-package com.n01579298.order_service.model;
+package com.n01579298.account_transactions_service.model;
 
 import java.time.LocalDateTime;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "orders")
 public class Order {
 
-	@Id
 	private String orderId;
 	private String userId;
 	private int quantity;
